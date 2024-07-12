@@ -28,7 +28,7 @@ pipeline {
                    -p CVE_CODE=CVE-2020-14583 \
                    | oc replace --force -n ${APP_NAMESPACE} -f -
                    """
-                sh "! ../tools/check-job-state.sh security-scans-trivy${APP_NAMESPACE}"
+                sh "! ../tools/check-job-state.sh security-scans-trivy ${APP_NAMESPACE}"
 
                }
           }
@@ -38,8 +38,7 @@ pipeline {
                 dir('shopping-cart') {
                     sh """
                         oc patch deployment security-scans \
-                        -p '{"spec": {"template": {"metadata": {"labels": {"build": "build-${BUILD_NUMBER}"}}}}}' \
-                        -n ${APP_NAMESPACE}
+                        -p '{"spec": {"template": {"metadata": {"labels": {"build": "build-${BUILD_NUMBER}"}}}}}' -n ${APP_NAMESPACE}
                     """
                 }
             }
